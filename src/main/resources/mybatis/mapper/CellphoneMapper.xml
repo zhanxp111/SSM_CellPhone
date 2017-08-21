@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.dao.CellphoneMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.Cellphone" >
+    <id column="phone_id" property="phoneId" jdbcType="INTEGER" />
+    <result column="phone_name" property="phoneName" jdbcType="CHAR" />
+    <result column="phone_price" property="phonePrice" jdbcType="DOUBLE" />
+    <result column="phone_color" property="phoneColor" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    phone_id, phone_name, phone_price, phone_color
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atguigu.bean.CellphoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from table_cellphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from table_cellphone
+    where phone_id = #{phoneId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from table_cellphone
+    where phone_id = #{phoneId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.bean.CellphoneExample" >
+    delete from table_cellphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.Cellphone" >
+    insert into table_cellphone (phone_id, phone_name, phone_price, 
+      phone_color)
+    values (#{phoneId,jdbcType=INTEGER}, #{phoneName,jdbcType=CHAR}, #{phonePrice,jdbcType=DOUBLE}, 
+      #{phoneColor,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.Cellphone" >
+    insert into table_cellphone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phoneId != null" >
+        phone_id,
+      </if>
+      <if test="phoneName != null" >
+        phone_name,
+      </if>
+      <if test="phonePrice != null" >
+        phone_price,
+      </if>
+      <if test="phoneColor != null" >
+        phone_color,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phoneId != null" >
+        #{phoneId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneName != null" >
+        #{phoneName,jdbcType=CHAR},
+      </if>
+      <if test="phonePrice != null" >
+        #{phonePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="phoneColor != null" >
+        #{phoneColor,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.bean.CellphoneExample" resultType="java.lang.Integer" >
+    select count(*) from table_cellphone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update table_cellphone
+    <set >
+      <if test="record.phoneId != null" >
+        phone_id = #{record.phoneId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneName != null" >
+        phone_name = #{record.phoneName,jdbcType=CHAR},
+      </if>
+      <if test="record.phonePrice != null" >
+        phone_price = #{record.phonePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.phoneColor != null" >
+        phone_color = #{record.phoneColor,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update table_cellphone
+    set phone_id = #{record.phoneId,jdbcType=INTEGER},
+      phone_name = #{record.phoneName,jdbcType=CHAR},
+      phone_price = #{record.phonePrice,jdbcType=DOUBLE},
+      phone_color = #{record.phoneColor,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.Cellphone" >
+    update table_cellphone
+    <set >
+      <if test="phoneName != null" >
+        phone_name = #{phoneName,jdbcType=CHAR},
+      </if>
+      <if test="phonePrice != null" >
+        phone_price = #{phonePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="phoneColor != null" >
+        phone_color = #{phoneColor,jdbcType=CHAR},
+      </if>
+    </set>
+    where phone_id = #{phoneId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Cellphone" >
+    update table_cellphone
+    set phone_name = #{phoneName,jdbcType=CHAR},
+      phone_price = #{phonePrice,jdbcType=DOUBLE},
+      phone_color = #{phoneColor,jdbcType=CHAR}
+    where phone_id = #{phoneId,jdbcType=INTEGER}
+  </update>
+</mapper>
