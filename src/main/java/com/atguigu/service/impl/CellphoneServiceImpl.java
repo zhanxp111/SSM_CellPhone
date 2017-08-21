@@ -40,12 +40,7 @@ public class CellphoneServiceImpl implements CellphoneService{
     }
 
 
-   /* @Override
-    public Cellphone getPhoneById(Integer phoneId) {
-        Cellphone cellphone = cellphoneMapper.selectByPrimaryKey(phoneId);
-        return cellphone;
-    }*/
-
+  
 
 
 
